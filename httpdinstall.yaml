@@ -1,0 +1,27 @@
+---
+- name: test configuration
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: start httpd
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: stop firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: false
+
+    - name: copy
+      copy:
+        src: index.html
+        dest: /var/www/html
